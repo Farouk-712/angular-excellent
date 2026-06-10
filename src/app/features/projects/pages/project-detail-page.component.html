@@ -1,0 +1,78 @@
+<a class="back-link" routerLink="/projects">← Back to projects</a>
+
+@if (project$ | async; as project) {
+  <article class="detail-card card">
+    <header>
+      <div>
+        <p class="eyebrow">Project details</p>
+        <h1>{{ project.name }}</h1>
+        <p>{{ project.description }}</p>
+      </div>
+      <app-status-badge [status]="project.status" />
+    </header>
+
+    <section class="detail-grid" aria-label="Project metrics">
+      <div>
+        <span>Owner</span>
+        <strong>{{ project.owner }}</strong>
+      </div>
+      <div>
+        <span>Due date</span>
+        <strong>{{ project.dueDate | date: 'mediumDate' }}</strong>
+      </div>
+      <div>
+        <span>Budget</span>
+        <strong>{{ project.budget | number }} TND</strong>
+      </div>
+      <div>
+        <span>Health</span>
+        <strong class="health" [ngClass]="health(project)">{{ health(project) }}</strong>
+      </div>
+      <div>
+        <span>Progress</span>
+        <strong>{{ progress(project) }}%</strong>
+      </div>
+      <div>
+        <span>Workload ratio</span>
+        <strong>{{ workload(project) | number: '1.1-2' }}</strong>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <p class="eyebrow">Delivery</p>
+        <h2>Tasks</h2>
+      </div>
+
+      <div class="task-list">
+        @for (task of project.tasks; track task.id) {
+          <article class="task-item">
+            <div>
+              <h3>{{ task.title }}</h3>
+              <p>{{ task.assignee }} · {{ task.estimatedHours }}h estimated · {{ task.spentHours }}h spent</p>
+            </div>
+            <span [ngClass]="task.status">{{ task.status }}</span>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <p class="eyebrow">Stack</p>
+        <h2>Technologies</h2>
+      </div>
+
+      <div class="stack-list">
+        @for (technology of project.stack; track technology) {
+          <span>{{ technology }}</span>
+        }
+      </div>
+    </section>
+  </article>
+} @else {
+  <section class="card missing-state">
+    <h1>Project not found</h1>
+    <p>The project may have been deleted or is not loaded yet.</p>
+  </section>
+}

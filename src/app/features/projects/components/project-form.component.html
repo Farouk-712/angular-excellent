@@ -1,0 +1,114 @@
+<form class="project-form card" [formGroup]="form" (ngSubmit)="submit()">
+  <header>
+    <div>
+      <p class="eyebrow">{{ project ? 'Edit project' : 'Create project' }}</p>
+      <h2>{{ project ? project.name : 'New Angular quality project' }}</h2>
+    </div>
+    @if (project) {
+      <button class="btn btn-ghost" type="button" (click)="cancelEdit.emit()">Cancel</button>
+    }
+  </header>
+
+  <div class="form-grid">
+    <div class="field wide">
+      <label for="project-name">Project name</label>
+      <input id="project-name" appAutofocus formControlName="name" placeholder="Example: SkillEvolve Dashboard" />
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <span class="error">Project name is required and must contain at least 4 characters.</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="owner">Owner</label>
+      <input id="owner" formControlName="owner" placeholder="Team lead name" />
+    </div>
+
+    <div class="field">
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        <option *ngFor="let status of projectStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="priority">Priority</label>
+      <select id="priority" formControlName="priority">
+        <option *ngFor="let priority of priorities" [ngValue]="priority">P{{ priority }}</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="due-date">Due date</label>
+      <input id="due-date" type="date" formControlName="dueDate" />
+    </div>
+
+    <div class="field">
+      <label for="budget">Budget</label>
+      <input id="budget" type="number" min="500" formControlName="budget" />
+    </div>
+
+    <div class="field wide">
+      <label for="stack">Stack</label>
+      <input id="stack" formControlName="stackText" placeholder="Angular, RxJS, NestJS" />
+    </div>
+
+    <div class="field wide">
+      <label for="description">Description</label>
+      <textarea id="description" rows="4" formControlName="description" placeholder="Describe the business objective"></textarea>
+      @if (form.controls.description.touched && form.controls.description.invalid) {
+        <span class="error">Description must be clear and contain at least 20 characters.</span>
+      }
+    </div>
+  </div>
+
+  <section class="tasks-section" formArrayName="tasks">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Tasks</p>
+        <h3>Delivery plan</h3>
+      </div>
+      <button class="btn btn-ghost" type="button" (click)="addTask()">Add task</button>
+    </div>
+
+    @for (task of tasks.controls; track $index; let index = $index) {
+      <div class="task-row" [formGroupName]="index">
+        <div class="field">
+          <label [for]="'task-title-' + index">Title</label>
+          <input [id]="'task-title-' + index" formControlName="title" placeholder="Task title" />
+        </div>
+
+        <div class="field">
+          <label [for]="'task-status-' + index">Status</label>
+          <select [id]="'task-status-' + index" formControlName="status">
+            <option *ngFor="let status of taskStatuses" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label [for]="'task-assignee-' + index">Assignee</label>
+          <input [id]="'task-assignee-' + index" formControlName="assignee" placeholder="Name" />
+        </div>
+
+        <div class="field compact">
+          <label [for]="'task-estimated-' + index">Estimated</label>
+          <input [id]="'task-estimated-' + index" type="number" formControlName="estimatedHours" />
+        </div>
+
+        <div class="field compact">
+          <label [for]="'task-spent-' + index">Spent</label>
+          <input [id]="'task-spent-' + index" type="number" formControlName="spentHours" />
+        </div>
+
+        <button class="btn btn-ghost danger" type="button" [disabled]="tasks.length === 1" (click)="removeTask(index)">
+          Remove
+        </button>
+      </div>
+    }
+  </section>
+
+  <footer>
+    <button class="btn btn-primary" type="submit" [disabled]="isSaving">
+      {{ isSaving ? 'Saving...' : project ? 'Save changes' : 'Create project' }}
+    </button>
+  </footer>
+</form>

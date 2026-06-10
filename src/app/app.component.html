@@ -1,0 +1,27 @@
+<header class="shell-header">
+  <div class="container shell-nav">
+    <a routerLink="/projects" class="brand" aria-label="Go to projects dashboard">
+      <span class="brand-mark">PF</span>
+      <span>
+        <strong>ProjectFlow</strong>
+        <small>Angular quality demo</small>
+      </span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a routerLink="/projects" routerLinkActive="active">Projects</a>
+      <a routerLink="/projects/new" routerLinkActive="active">New project</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container shell-content">
+  <router-outlet />
+</main>
+
+@if (toast$ | async; as toast) {
+  <aside class="toast" [class.error-toast]="toast.type === 'error'" role="status">
+    <strong>{{ toast.title }}</strong>
+    <span>{{ toast.message }}</span>
+  </aside>
+}

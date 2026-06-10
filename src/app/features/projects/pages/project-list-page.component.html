@@ -1,0 +1,75 @@
+<section class="hero card">
+  <div>
+    <p class="eyebrow">Angular excellence test repository</p>
+    <h1>Project management dashboard</h1>
+    <p>
+      A clean feature module with lazy routes, reactive forms, typed state, CRUD operations,
+      RxJS streams and isolated business rules.
+    </p>
+  </div>
+  <button class="btn btn-primary" type="button" (click)="createNewProject()">Create project</button>
+</section>
+
+@if (vm$ | async; as vm) {
+  <section class="stats-grid" aria-label="Project statistics">
+    <article class="card stat-card">
+      <span>Total</span>
+      <strong>{{ vm.stats.total }}</strong>
+    </article>
+    <article class="card stat-card">
+      <span>Active</span>
+      <strong>{{ vm.stats.active }}</strong>
+    </article>
+    <article class="card stat-card">
+      <span>Blocked</span>
+      <strong>{{ vm.stats.blocked }}</strong>
+    </article>
+    <article class="card stat-card">
+      <span>Average progress</span>
+      <strong>{{ vm.stats.averageProgress }}%</strong>
+    </article>
+  </section>
+
+  <section class="toolbar card" aria-label="Filters">
+    <div class="field">
+      <label for="project-search">Search</label>
+      <input id="project-search" type="search" [formControl]="searchControl" placeholder="Search by name, owner or technology" />
+    </div>
+
+    <div class="field">
+      <label for="project-status">Status</label>
+      <select id="project-status" [formControl]="statusControl">
+        @for (status of statusOptions; track status) {
+          <option [ngValue]="status">{{ status }}</option>
+        }
+      </select>
+    </div>
+  </section>
+
+  @if (showForm) {
+    <app-project-form
+      [project]="selectedProject"
+      [isSaving]="vm.isLoading"
+      (saveProject)="saveProject($event)"
+      (cancelEdit)="cancelEdit()"
+    />
+  }
+
+  @if (vm.projects.length > 0) {
+    <section class="projects-grid" aria-label="Project list">
+      @for (project of vm.projects; track project.id) {
+        <app-project-card
+          [project]="project"
+          (openProject)="openProject($event)"
+          (editProject)="editProject($event)"
+          (deleteProject)="deleteProject($event)"
+        />
+      }
+    </section>
+  } @else {
+    <app-empty-state
+      title="No project matches your filters"
+      description="Try another search term or create a new project to test the CRUD flow."
+    />
+  }
+}

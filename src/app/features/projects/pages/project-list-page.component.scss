@@ -1,0 +1,91 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+  padding: 28px;
+
+  h1 {
+    margin: 4px 0 10px;
+    font-size: clamp(30px, 5vw, 52px);
+    letter-spacing: -0.05em;
+  }
+
+  p {
+    max-width: 760px;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+
+  span {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  strong {
+    font-size: 30px;
+    letter-spacing: -0.04em;
+  }
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 18px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+app-project-form {
+  display: block;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 920px) {
+  .hero,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stats-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

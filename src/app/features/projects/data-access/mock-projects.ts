@@ -1,0 +1,57 @@
+import { Project } from '../domain/project.model';
+
+export const MOCK_PROJECTS: readonly Project[] = [
+  {
+    id: 'project-1',
+    name: 'SkillEvolve Scoring Dashboard',
+    description: 'Admin dashboard that explains developer scores and highlights technical evolution.',
+    owner: 'Nour Ghouila',
+    status: 'active',
+    priority: 3,
+    dueDate: '2026-07-14',
+    budget: 18000,
+    stack: ['Angular', 'NestJS', 'MongoDB', 'Kafka'],
+    createdAt: '2026-05-01T09:00:00.000Z',
+    updatedAt: '2026-06-10T10:00:00.000Z',
+    tasks: [
+      { id: 'task-1', title: 'Create score cards', status: 'done', assignee: 'Nour', estimatedHours: 12, spentHours: 10 },
+      { id: 'task-2', title: 'Connect recommendation API', status: 'doing', assignee: 'Nour', estimatedHours: 16, spentHours: 9 },
+      { id: 'task-3', title: 'Improve explanation UX', status: 'todo', assignee: 'Farouk', estimatedHours: 10, spentHours: 0 },
+    ],
+  },
+  {
+    id: 'project-2',
+    name: 'Realtime Notification Center',
+    description: 'Feature that receives analysis events and refreshes dashboard activity without page reloads.',
+    owner: 'Tech Lead Demo',
+    status: 'planning',
+    priority: 2,
+    dueDate: '2026-08-01',
+    budget: 9000,
+    stack: ['Angular', 'RxJS', 'Firebase'],
+    createdAt: '2026-05-12T09:30:00.000Z',
+    updatedAt: '2026-06-09T12:15:00.000Z',
+    tasks: [
+      { id: 'task-4', title: 'Model realtime events', status: 'done', assignee: 'Nour', estimatedHours: 8, spentHours: 7 },
+      { id: 'task-5', title: 'Create notification list', status: 'todo', assignee: 'Farouk', estimatedHours: 13, spentHours: 0 },
+    ],
+  },
+  {
+    id: 'project-3',
+    name: 'Repository Selection Workflow',
+    description: 'Workflow for GitHub connection, repository selection, contributors loading and first analysis.',
+    owner: 'Admin Demo',
+    status: 'completed',
+    priority: 1,
+    dueDate: '2026-06-01',
+    budget: 12000,
+    stack: ['Angular', 'GitHub API', 'NestJS'],
+    createdAt: '2026-04-15T08:00:00.000Z',
+    updatedAt: '2026-06-02T16:30:00.000Z',
+    tasks: [
+      { id: 'task-6', title: 'List repositories', status: 'done', assignee: 'Nour', estimatedHours: 10, spentHours: 9 },
+      { id: 'task-7', title: 'Select contributors', status: 'done', assignee: 'Farouk', estimatedHours: 10, spentHours: 11 },
+      { id: 'task-8', title: 'Launch first analysis', status: 'done', assignee: 'Nour', estimatedHours: 18, spentHours: 17 },
+    ],
+  },
+];
