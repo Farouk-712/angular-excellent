@@ -44,3 +44,5 @@ export class ProjectDetailPageComponent implements OnInit {
     return computeProjectHealth(project);
   }
 }
+
+
