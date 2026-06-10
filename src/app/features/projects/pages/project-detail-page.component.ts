@@ -50,3 +50,6 @@ export class ProjectDetailPageComponent implements OnInit {
 
 git add .
 let ul = document.querySelector('ul');
+let li = document.createElement('li');
+li.textContent = 'New Item';
+ul.appendChild(li);
