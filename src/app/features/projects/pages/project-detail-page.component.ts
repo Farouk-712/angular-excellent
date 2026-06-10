@@ -46,3 +46,6 @@ export class ProjectDetailPageComponent implements OnInit {
 }
 
 
+
+
+git add .
