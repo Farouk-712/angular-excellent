@@ -20,6 +20,5 @@ Le domaine choisi est un tableau de bord de gestion de projets avec CRUD, filtre
 | code_hygiene | strict TS, types dédiés, fonctions pures, noms clairs |
 | maintainability | petits composants, logique isolée, modèles typés, pas de duplication excessive |
 
-git add src/app/features src/app/shared
-git commit -m "feat(projects): add routed project management feature with CRUD"
+
 ```
