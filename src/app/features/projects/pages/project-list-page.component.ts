@@ -2,7 +2,7 @@ import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged, filter, map, startWith, tap } from 'rxjs';
 
 import { EmptyStateComponent } from '../../../shared/ui/empty-state/empty-state.component';
@@ -14,7 +14,8 @@ import { ProjectsStoreService } from '../data-access/projects-store.service';
 @Component({
   selector: 'app-project-list-page',
   standalone: true,
-  imports: [AsyncPipe, EmptyStateComponent, NgIf, ProjectCardComponent, ProjectFormComponent, ReactiveFormsModule],
+  imports: [AsyncPipe, EmptyStateComponent, NgIf, ProjectCardComponent,
+    RouterLink, ProjectFormComponent, ReactiveFormsModule],
   templateUrl: './project-list-page.component.html',
   styleUrl: './project-list-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

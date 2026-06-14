@@ -1,0 +1,23 @@
+<section class="risk-panel" [ngClass]="risk.riskLevel">
+  <div class="risk-panel__header">
+    <div>
+      <p class="risk-panel__eyebrow">Risk assessment</p>
+      <h3>{{ risk.health }}</h3>
+    </div>
+
+    <strong>{{ risk.score }}/100</strong>
+  </div>
+
+  @if (activeFactors.length > 0) {
+    <ul class="risk-panel__list">
+      @for (factor of activeFactors; track factor.code) {
+        <li>
+          <span>{{ factor.label }}</span>
+          <small>{{ factor.recommendation }}</small>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="risk-panel__empty">No major delivery risk detected for this project.</p>
+  }
+</section>

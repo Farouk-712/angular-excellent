@@ -1,0 +1,30 @@
+<div class="task-board">
+  @for (column of columns; track column.status) {
+    <section class="task-board__column">
+      <header>
+        <h3>{{ column.label }}</h3>
+        <span>{{ column.tasks.length }}</span>
+      </header>
+
+      <div class="task-board__items">
+        @for (task of column.tasks; track task.id) {
+          <article class="task-card">
+            <strong>{{ task.title }}</strong>
+            <span>{{ task.assignee }}</span>
+            <small>{{ task.spentHours }}h / {{ task.estimatedHours }}h</small>
+
+            <div class="task-card__actions">
+              @for (status of statuses; track status) {
+                <button type="button" [disabled]="status === task.status" (click)="moveTask(task, status)">
+                  {{ status }}
+                </button>
+              }
+            </div>
+          </article>
+        } @empty {
+          <p class="task-board__empty">Aucune tâche dans cette colonne.</p>
+        }
+      </div>
+    </section>
+  }
+</div>

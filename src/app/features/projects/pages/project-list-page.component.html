@@ -7,7 +7,10 @@
       RxJS streams and isolated business rules.
     </p>
   </div>
-  <button class="btn btn-primary" type="button" (click)="createNewProject()">Create project</button>
+  <div class="hero-actions">
+    <button class="btn btn-primary" type="button" (click)="createNewProject()">Create project</button>
+    <a class="btn btn-secondary" routerLink="/projects/analytics">Open analytics</a>
+  </div>
 </section>
 
 @if (vm$ | async; as vm) {

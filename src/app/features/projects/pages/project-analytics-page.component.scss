@@ -1,0 +1,133 @@
+.analytics-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.analytics-header h1 {
+  margin: 0.25rem 0;
+  color: #0f172a;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.analytics-header p:last-child {
+  max-width: 48rem;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.analytics-header a {
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  color: #334155;
+  padding: 0.55rem 0.95rem;
+  text-decoration: none;
+}
+
+.analytics-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.analytics-toolbar label {
+  display: grid;
+  gap: 0.35rem;
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.checkbox-line {
+  display: flex !important;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(20rem, 0.8fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.risk-table,
+.capacity-list,
+.project-strip {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.risk-row,
+.capacity-list div,
+.project-strip a {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.9rem;
+  background: #f8fafc;
+  padding: 0.85rem;
+}
+
+.risk-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.risk-row span,
+.capacity-list dt,
+.project-strip span {
+  color: #64748b;
+}
+
+.risk-row strong,
+.capacity-list dd,
+.project-strip strong {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.risk-row em {
+  border-radius: 999px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 800;
+  padding: 0.25rem 0.55rem;
+}
+
+.capacity-list div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.capacity-list dd {
+  margin: 0;
+}
+
+.project-strip {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.project-strip a {
+  display: grid;
+  gap: 0.5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.empty-text {
+  color: #64748b;
+}

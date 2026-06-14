@@ -38,23 +38,17 @@
       </div>
     </section>
 
+    @if (risk$ | async; as risk) {
+      <app-project-risk-panel [risk]="risk" />
+    }
+
     <section>
       <div class="section-title">
         <p class="eyebrow">Delivery</p>
-        <h2>Tasks</h2>
+        <h2>Kanban tasks</h2>
       </div>
 
-      <div class="task-list">
-        @for (task of project.tasks; track task.id) {
-          <article class="task-item">
-            <div>
-              <h3>{{ task.title }}</h3>
-              <p>{{ task.assignee }} · {{ task.estimatedHours }}h estimated · {{ task.spentHours }}h spent</p>
-            </div>
-            <span [ngClass]="task.status">{{ task.status }}</span>
-          </article>
-        }
-      </div>
+      <app-task-board [tasks]="project.tasks" (statusChanged)="updateTaskStatus(project, $event)" />
     </section>
 
     <section>

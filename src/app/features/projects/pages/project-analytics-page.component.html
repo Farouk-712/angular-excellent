@@ -1,0 +1,101 @@
+<header class="analytics-header">
+  <div>
+    <p class="eyebrow">Portfolio analytics</p>
+    <h1>Delivery quality dashboard</h1>
+    <p>Business rules, RxJS state, backend fallback and reusable UI components for a richer Angular analysis.</p>
+  </div>
+
+  <a routerLink="/projects">Back to projects</a>
+</header>
+
+@if (vm$ | async; as vm) {
+  <section class="analytics-toolbar card">
+    <label>
+      Minimum risk score
+      <input
+        type="range"
+        min="0"
+        max="100"
+        step="5"
+        [value]="0"
+        (input)="updateMinimumRiskScore($any($event.target).value)"
+      />
+    </label>
+
+    <label class="checkbox-line">
+      <input type="checkbox" checked (change)="toggleCompleted($any($event.target).checked)" />
+      Include completed projects
+    </label>
+  </section>
+
+  <section class="metrics-grid">
+    <app-metric-card label="Projects" [value]="vm.portfolio.totalProjects" description="Analyzed repositories" />
+    <app-metric-card label="Average progress" [value]="vm.portfolio.averageProgress" suffix="%" tone="success" />
+    <app-metric-card label="Total budget" [value]="budget(vm.portfolio.totalBudget)" description="Portfolio envelope" />
+    <app-metric-card label="Capacity usage" [value]="vm.capacity.utilizationRate" suffix="%" [tone]="vm.capacity.isOverloaded ? 'danger' : 'success'" />
+  </section>
+
+  <section class="analytics-grid">
+    <article class="card">
+      <div class="section-title">
+        <p class="eyebrow">Risk ranking</p>
+        <h2>Top projects to review</h2>
+      </div>
+
+      <div class="risk-table">
+        @for (risk of vm.risks; track risk.projectId) {
+          <div class="risk-row" [ngClass]="risk.riskLevel">
+            <span>{{ risk.projectId }}</span>
+            <strong>{{ risk.score }}/100</strong>
+            <em>{{ risk.riskLevel }}</em>
+          </div>
+        } @empty {
+          <p class="empty-text">No risk detected with the current filters.</p>
+        }
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="section-title">
+        <p class="eyebrow">Capacity</p>
+        <h2>Sprint planning</h2>
+      </div>
+
+      <dl class="capacity-list">
+        <div>
+          <dt>Total capacity</dt>
+          <dd>{{ vm.capacity.totalCapacity }}h</dd>
+        </div>
+        <div>
+          <dt>Available capacity</dt>
+          <dd>{{ vm.capacity.availableCapacity }}h</dd>
+        </div>
+        <div>
+          <dt>Planned work</dt>
+          <dd>{{ vm.capacity.plannedHours }}h</dd>
+        </div>
+        <div>
+          <dt>Remaining capacity</dt>
+          <dd>{{ vm.capacity.remainingHours }}h</dd>
+        </div>
+      </dl>
+    </article>
+  </section>
+
+  <section class="card">
+    <div class="section-title">
+      <p class="eyebrow">Priority</p>
+      <h2>Projects requiring attention</h2>
+    </div>
+
+    <div class="project-strip">
+      @for (project of vm.topRiskProjects; track project.id) {
+        <a [routerLink]="['/projects', project.id]">
+          <strong>{{ project.name }}</strong>
+          <app-status-badge [status]="project.status" />
+          <span>{{ project.owner }} · {{ project.budget | number }} TND</span>
+        </a>
+      }
+    </div>
+  </section>
+}

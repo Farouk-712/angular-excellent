@@ -1,0 +1,13 @@
+<article class="metric-card" [ngClass]="tone">
+  <p class="metric-card__label">{{ label }}</p>
+
+  @if (numericValue !== null) {
+    <strong class="metric-card__value">{{ numericValue | number: '1.0-1' }}{{ suffix }}</strong>
+  } @else {
+    <strong class="metric-card__value">{{ value }}{{ suffix }}</strong>
+  }
+
+  @if (description) {
+    <span class="metric-card__description">{{ description }}</span>
+  }
+</article>
