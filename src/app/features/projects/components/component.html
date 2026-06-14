@@ -50,3 +50,57 @@
     </div>
   </footer>
 </article>
+
+<article class="project-card card">
+  <header>
+    <div class="owner-avatar" aria-hidden="true">{{ project.owner | initials }}</div>
+    <div>
+      <h2>{{ project.name }}</h2>
+      <p>Owner: {{ project.owner }}</p>
+    </div>
+    <app-status-badge [status]="project.status" />
+  </header>
+
+  <p class="description">{{ project.description }}</p>
+
+  <div class="meta-grid">
+    <span>
+      <strong>{{ project.tasks.length }}</strong>
+      tasks
+    </span>
+    <span>
+      <strong>{{ project.budget | number }}</strong>
+      budget
+    </span>
+    <span>
+      <strong>P{{ project.priority }}</strong>
+      priority
+    </span>
+  </div>
+
+  <section class="progress-block" aria-label="Project progress">
+    <div>
+      <span>Progress</span>
+      <strong>{{ progress(project) }}%</strong>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="progress(project)"></div>
+    </div>
+  </section>
+
+  <div class="stack-list" aria-label="Project technologies">
+    @for (technology of project.stack; track technology) {
+      <span>{{ technology }}</span>
+    }
+  </div>
+
+  <footer>
+    <span class="health" [ngClass]="health(project)">{{ health(project) }}</span>
+    <div class="actions">
+      <button class="btn btn-ghost" type="button" (click)="openProject.emit(project.id)">Details</button>
+      <button class="btn btn-ghost" type="button" (click)="editProject.emit(project)">Edit</button>
+      <button class="btn btn-ghost danger" type="button" (click)="deleteProject.emit(project.id)">Supprimer</button>
+    </div>
+  </footer>
+</article>
+
