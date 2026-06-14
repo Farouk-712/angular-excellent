@@ -20,27 +20,6 @@ Le domaine choisi est un tableau de bord de gestion de projets avec CRUD, filtre
 | code_hygiene | strict TS, types dédiés, fonctions pures, noms clairs |
 | maintainability | petits composants, logique isolée, modèles typés, pas de duplication excessive |
 
-## Lancer le projet
-
-```bash
-npm install
-npm start
-```
-
-Puis ouvrir `http://localhost:4200`.
-
-## Pour un test SkillEvolve plus réaliste
-
-Fais plusieurs commits au lieu d'un seul gros commit :
-
-```bash
-git init
-git add README.md package.json angular.json tsconfig*.json .editorconfig .gitignore
-git commit -m "chore: initialize Angular excellent demo repository"
-
-git add src/app/core src/environments src/main.ts src/index.html src/styles.scss
-git commit -m "feat(core): configure providers, interceptors and app shell"
-
 git add src/app/features src/app/shared
 git commit -m "feat(projects): add routed project management feature with CRUD"
 ```
