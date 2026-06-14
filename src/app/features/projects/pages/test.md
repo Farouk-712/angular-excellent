@@ -43,3 +43,4 @@ En revanche, les scores liés au code, à la complexité, à l’intégration ba
 Ce fichier permet de tester un cas simple où le développeur contribue uniquement à la documentation.
 
 Il est utile pour vérifier que le pipeline distingue correctement les contributions de code et les contributions textuelles.
+
