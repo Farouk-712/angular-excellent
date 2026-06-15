@@ -1,0 +1,101 @@
+<form class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <header class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h2 class="text-lg font-semibold text-slate-950">Enterprise workflow wizard</h2>
+      <p class="text-sm text-slate-500">Completion: {{ completionPercent() }}%</p>
+    </div>
+
+    <button type="button" class="rounded-xl border border-slate-200 px-4 py-2 text-sm" (click)="loadDemoData()">
+      Load demo
+    </button>
+  </header>
+
+  <div class="h-2 overflow-hidden rounded-full bg-slate-100">
+    <div class="h-full rounded-full bg-violet-600" [style.width.%]="completionPercent()"></div>
+  </div>
+
+  @switch (currentStep()) {
+    @case (0) {
+      <section class="grid gap-4 md:grid-cols-2">
+        <label class="space-y-1">
+          <span class="text-sm font-medium text-slate-700">Name</span>
+          <input class="w-full rounded-xl border border-slate-200 px-3 py-2" formControlName="name" />
+          @if (hasError(form.controls.name, 'required')) {
+            <small class="text-rose-600">Name is required</small>
+          }
+        </label>
+
+        <label class="space-y-1">
+          <span class="text-sm font-medium text-slate-700">Repository</span>
+          <input class="w-full rounded-xl border border-slate-200 px-3 py-2" formControlName="repository" />
+          @if (hasError(form.controls.repository, 'repositoryFormat')) {
+            <small class="text-rose-600">Use owner/name format</small>
+          }
+        </label>
+
+        <label class="space-y-1">
+          <span class="text-sm font-medium text-slate-700">Priority</span>
+          <select class="w-full rounded-xl border border-slate-200 px-3 py-2" formControlName="priority">
+            @for (priority of priorities; track priority) {
+              <option [value]="priority">{{ priority }}</option>
+            }
+          </select>
+        </label>
+
+        <app-maturity-level-control formControlName="maturity" />
+      </section>
+    }
+
+    @case (1) {
+      <section class="space-y-4" formArrayName="tasks">
+        <div class="flex items-center justify-between">
+          <h3 class="font-semibold text-slate-950">Tasks</h3>
+          <button type="button" class="rounded-xl bg-slate-950 px-3 py-2 text-sm text-white" (click)="addTask()">Add task</button>
+        </div>
+
+        @for (task of tasks.controls; track task; let index = $index) {
+          <ng-container [formGroupName]="index">
+            <div class="grid gap-3 rounded-xl border border-slate-200 p-4 md:grid-cols-3">
+              <input class="rounded-xl border border-slate-200 px-3 py-2" formControlName="title" placeholder="Task title" />
+              <input class="rounded-xl border border-slate-200 px-3 py-2" formControlName="dueDate" type="date" />
+              <button type="button" class="rounded-xl border border-rose-200 text-rose-700" (click)="removeTask(index)">Remove</button>
+            </div>
+          </ng-container>
+        } @empty {
+          <p class="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">No tasks yet.</p>
+        }
+      </section>
+    }
+
+    @default {
+      <section class="space-y-4" formArrayName="findings">
+        <div class="flex items-center justify-between">
+          <h3 class="font-semibold text-slate-950">Quality findings</h3>
+          <button type="button" class="rounded-xl bg-slate-950 px-3 py-2 text-sm text-white" (click)="addFinding()">Add finding</button>
+        </div>
+
+        @for (finding of findings.controls; track finding; let index = $index) {
+          <div class="grid gap-3 rounded-xl border border-slate-200 p-4 md:grid-cols-4" [formGroupName]="index">
+            <select class="rounded-xl border border-slate-200 px-3 py-2" formControlName="severity">
+              @for (level of riskLevels; track level) {
+                <option [value]="level">{{ level }}</option>
+              }
+            </select>
+            <input class="rounded-xl border border-slate-200 px-3 py-2" formControlName="message" placeholder="Finding message" />
+            <input class="rounded-xl border border-slate-200 px-3 py-2" formControlName="recommendation" placeholder="Recommendation" />
+            <button type="button" class="rounded-xl border border-rose-200 text-rose-700" (click)="removeFinding(index)">Remove</button>
+          </div>
+        }
+      </section>
+    }
+  }
+
+  <footer class="flex items-center justify-between">
+    <button type="button" class="rounded-xl border border-slate-200 px-4 py-2" (click)="previousStep()">Previous</button>
+
+    <div class="flex gap-2">
+      <button type="button" class="rounded-xl border border-slate-200 px-4 py-2" (click)="nextStep()">Next</button>
+      <button type="submit" class="rounded-xl bg-violet-700 px-4 py-2 text-white" [disabled]="form.invalid">Save</button>
+    </div>
+  </footer>
+</form>

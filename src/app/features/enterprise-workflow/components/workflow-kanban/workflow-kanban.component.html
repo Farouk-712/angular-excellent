@@ -1,0 +1,46 @@
+<section class="space-y-4">
+  <label class="block">
+    <span class="sr-only">Search tasks</span>
+    <input
+      class="w-full rounded-xl border border-slate-200 px-3 py-2"
+      placeholder="Search tasks..."
+      (input)="updateSearch($any($event.target).value)" />
+  </label>
+
+  @if (groupedTasks$ | async; as groupedTasks) {
+    <div class="grid gap-4 lg:grid-cols-5">
+      @for (column of columns; track column) {
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ column }}</h3>
+
+          <div class="space-y-3">
+            @for (task of groupedTasks[column]; track trackByTaskId($index, task)) {
+              <div class="rounded-xl border p-3" [ngClass]="taskClass(task)">
+                <div class="flex items-start justify-between gap-2">
+                  <strong class="text-sm text-slate-950">{{ task.title }}</strong>
+                  <span class="rounded-full bg-white px-2 py-0.5 text-xs text-slate-500">{{ task.priority }}</span>
+                </div>
+
+                <p class="mt-2 text-xs leading-5 text-slate-500">{{ task.description }}</p>
+                <p class="mt-2 text-xs text-slate-400">Due {{ task.dueDate | date: 'mediumDate' }}</p>
+
+                <div class="mt-3 flex flex-wrap gap-1">
+                  @for (targetColumn of columns; track targetColumn) {
+                    <button
+                      type="button"
+                      class="rounded-full border border-slate-200 bg-white px-2 py-1 text-[11px]"
+                      (click)="move(task, targetColumn)">
+                      {{ targetColumn }}
+                    </button>
+                  }
+                </div>
+              </div>
+            } @empty {
+              <p class="rounded-xl border border-dashed border-slate-200 p-3 text-xs text-slate-400">No task</p>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

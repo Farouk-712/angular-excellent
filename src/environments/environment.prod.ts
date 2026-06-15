@@ -1,4 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: '/api',
-} as const;
+  enterpriseWorkflowApi: '/api/enterprise-workflows',
+  accessTokenStorageKey: 'skillevolve.accessToken',
+  refreshTokenStorageKey: 'skillevolve.refreshToken',
+} as const satisfies Record<string, string | boolean>;

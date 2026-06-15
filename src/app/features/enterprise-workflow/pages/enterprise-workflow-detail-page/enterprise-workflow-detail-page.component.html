@@ -1,0 +1,22 @@
+@if (workflow$ | async; as workflow) {
+  <article class="space-y-6">
+    <header class="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6">
+      <div>
+        <a routerLink="/enterprise-workflow" class="text-sm font-medium text-violet-700">← Back to dashboard</a>
+        <h1 class="mt-3 text-2xl font-semibold text-slate-950">{{ workflow.name }}</h1>
+        <p class="mt-1 text-sm text-slate-500">{{ workflow.repository }} · updated {{ workflow.updatedAt | date: 'medium' }}</p>
+      </div>
+
+      <button type="button" class="rounded-xl bg-slate-950 px-4 py-2 text-sm text-white" (click)="goEdit(workflow.id)">
+        Edit workflow
+      </button>
+    </header>
+
+    <app-workflow-risk-matrix [value]="workflow" />
+    <app-workflow-kanban [tasks]="workflow.tasks" />
+
+    <pre class="overflow-auto rounded-2xl bg-slate-950 p-5 text-xs text-white">{{ workflow.metadata | json }}</pre>
+  </article>
+} @else {
+  <p class="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500">Workflow not found.</p>
+}

@@ -1,0 +1,15 @@
+<div class="grid grid-cols-2 gap-2">
+  @for (level of levels; track level) {
+    <button
+      type="button"
+      class="rounded-xl border px-3 py-2 text-sm font-medium transition"
+      [class.border-violet-500]="value() === level"
+      [class.bg-violet-50]="value() === level"
+      [class.text-violet-800]="value() === level"
+      [attr.aria-pressed]="value() === level"
+      [disabled]="disabled()"
+      (click)="select(level)">
+      {{ level }}
+    </button>
+  }
+</div>
